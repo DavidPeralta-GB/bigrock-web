@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TS@BigRock Website
+
+Marketing and landing page for the TS@BigRock timesheet management application. Built with [Next.js](https://nextjs.org) and [Sanity.io](https://sanity.io) CMS.
+
+## Tech Stack
+
+- **Frontend**: Next.js 15 (App Router)
+- **CMS**: Sanity.io
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+
+## Sanity CMS
+
+Content is managed through Sanity Studio:
+
+- **Studio URL**: https://bigrock.sanity.studio/
+- **Project ID**: `yj6cjjt2`
+- **Dataset**: `production`
+
+### Content Types
+
+| Type | Description |
+|------|-------------|
+| `siteSettings` | Global site configuration (logo, contact, SEO) |
+| `hero` | Hero section content |
+| `landingPage` | Section titles and CTA configuration |
+| `feature` | Product features |
+| `howItWorks` | Step-by-step guide |
+| `pricingTier` | Pricing plans |
+| `testimonial` | Customer testimonials |
+| `faq` | Frequently asked questions |
+| `page` | Generic content pages |
+| `service` | Service offerings |
+
+See [CLAUDE.md](./CLAUDE.md) for detailed schema documentation and GROQ query examples.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+Create a `.env.local` file:
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=yj6cjjt2
+NEXT_PUBLIC_SANITY_DATASET=production
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Related Projects
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Sanity Studio**: [bigrock-cms](../bigrock-cms) - Content management studio
+- **Timesheet App**: https://ts.bigrock.uk.com/
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The easiest way to deploy is with [Vercel](https://vercel.com). Connect this repository and it will auto-deploy on push.
