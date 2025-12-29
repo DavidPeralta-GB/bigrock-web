@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, X, Clock } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 interface NavigationProps {
@@ -65,9 +65,12 @@ export function Navigation({ siteName = "TS@BigRock" }: NavigationProps) {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm" asChild>
-              <a href="https://ts.bigrock.uk.com/">Sign In</a>
-            </Button>
+            <a
+              href="https://ts.bigrock.uk.com/"
+              className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
+            >
+              Sign In
+            </a>
             <Button size="sm">
               Get Started
             </Button>
@@ -98,9 +101,12 @@ export function Navigation({ siteName = "TS@BigRock" }: NavigationProps) {
               </Link>
             ))}
             <div className="pt-4 flex flex-col gap-2">
-              <Button variant="secondary" className="w-full" asChild>
-                <a href="https://ts.bigrock.uk.com/">Sign In</a>
-              </Button>
+              <a
+                href="https://ts.bigrock.uk.com/"
+                className={cn(buttonVariants({ variant: "secondary" }), "w-full text-center")}
+              >
+                Sign In
+              </a>
               <Button className="w-full">
                 Get Started
               </Button>
