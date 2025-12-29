@@ -65,8 +65,8 @@ export function Navigation({ siteName = "TS@BigRock" }: NavigationProps) {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm">
-              Sign In
+            <Button variant="ghost" size="sm" asChild>
+              <a href="https://ts.bigrock.uk.com/">Sign In</a>
             </Button>
             <Button size="sm">
               Get Started
@@ -98,8 +98,8 @@ export function Navigation({ siteName = "TS@BigRock" }: NavigationProps) {
               </Link>
             ))}
             <div className="pt-4 flex flex-col gap-2">
-              <Button variant="secondary" className="w-full">
-                Sign In
+              <Button variant="secondary" className="w-full" asChild>
+                <a href="https://ts.bigrock.uk.com/">Sign In</a>
               </Button>
               <Button className="w-full">
                 Get Started
