@@ -1,26 +1,698 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dark Mode Colors (Default Theme) - High Contrast Text */
+  --bg-canvas: #0d1117;
+  --bg-canvas-subtle: #161b22;
+  --fg-default: #fff;
+
+  /* Was #c9d1d9 - Brightened for readability */
+  --fg-muted: #bdc4cc;
+
+  /* Was #8b949e - Brightened for readability */
+  --border-default: #30363d;
+  --accent-emphasis: #1f6feb;
+  --success-emphasis: #238636;
+  --attention-emphasis: #d29922;
+  --danger-emphasis: #da3633;
+  --danger-subtle: #da363320;
+
+  /* Dynamic Gray Palette - Dark Mode */
+  --gray-50: #161b22;
+  --gray-100: #21262d;
+  --gray-200: #30363d;
+  --gray-300: #484f58;
+  --gray-400: #8b949e;
+
+  /* Shifted up */
+  --gray-500: #a9b5c3;
+
+  /* Brightened from #8b949e */
+  --gray-600: #c9d1d9;
+
+  /* Brightened from #b1bac4 */
+  --gray-700: #e6edf3;
+
+  /* Brightened from #c9d1d9 */
+  --gray-800: #f0f6fc;
+  --gray-900: #fff;
+
+  /* Dynamic Blue Palette - Dark Mode */
+  --blue-50: #1f6feb20;
+  --blue-100: #1f6feb40;
+  --blue-500: #1f6feb;
+  --blue-600: #1f6feb;
+  --blue-700: #388bfd;
+
+  /* Badge Colors - Dark Mode (matching canvas background) */
+  --badge-success-bg: #0d1117;
+  --badge-success-text: #4ade80;
+  --badge-success-border: #4ade80;
+  --badge-secondary-bg: #0d1117;
+  --badge-secondary-text: #9ca3af;
+  --badge-secondary-border: #9ca3af;
+  --badge-info-bg: #0d1117;
+  --badge-info-text: #60a5fa;
+  --badge-info-border: #60a5fa;
+  --badge-danger-bg: #0d1117;
+  --badge-danger-text: #f87171;
+  --badge-danger-border: #f87171;
+
+  /* No highlight outline for default dark theme */
+  --highlight-outline: transparent;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+[data-theme='dark'] {
+  /* Dark Mode Colors (Explicit Override for Nesting) */
+  --bg-canvas: #0d1117;
+  --bg-canvas-subtle: #161b22;
+  --fg-default: #fff;
+  --fg-muted: #bdc4cc;
+  --border-default: #30363d;
+  --accent-emphasis: #1f6feb;
+  --success-emphasis: #238636;
+  --attention-emphasis: #d29922;
+  --danger-emphasis: #da3633;
+  --danger-subtle: #da363320;
+
+  /* Dynamic Gray Palette - Dark Mode */
+  --gray-50: #161b22;
+  --gray-100: #21262d;
+  --gray-200: #30363d;
+  --gray-300: #484f58;
+  --gray-400: #8b949e;
+  --gray-500: #a9b5c3;
+  --gray-600: #c9d1d9;
+  --gray-700: #e6edf3;
+  --gray-800: #f0f6fc;
+  --gray-900: #fff;
+
+  /* Dynamic Blue Palette - Dark Mode */
+  --blue-50: #1f6feb20;
+  --blue-100: #1f6feb40;
+  --blue-500: #1f6feb;
+  --blue-600: #1f6feb;
+  --blue-700: #388bfd;
+
+  /* Badge Colors - Dark Mode (matching canvas background) */
+  --badge-success-bg: #0d1117;
+  --badge-success-text: #4ade80;
+  --badge-success-border: #4ade80;
+  --badge-secondary-bg: #0d1117;
+  --badge-secondary-text: #9ca3af;
+  --badge-secondary-border: #9ca3af;
+  --badge-info-bg: #0d1117;
+  --badge-info-text: #60a5fa;
+  --badge-info-border: #60a5fa;
+  --badge-danger-bg: #0d1117;
+  --badge-danger-text: #f87171;
+  --badge-danger-border: #f87171;
+
+  /* No highlight outline for dark theme */
+  --highlight-outline: transparent;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+[data-theme='light'] {
+  /* Restoring original light theme colors */
+  --bg-canvas: #f9fafb;
+  --bg-canvas-subtle: #fff;
+  --fg-default: #111827;
+  --fg-muted: #4b5563;
+  --border-default: #e5e7eb;
+  --accent-emphasis: #2563eb;
+  --success-emphasis: #16a34a;
+  --attention-emphasis: #b45309;
+  --danger-emphasis: #dc2626;
+  --danger-subtle: #fef2f2;
+
+  /* Dynamic Gray Palette - Light Mode (Standard Tailwind) */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  /* Dynamic Blue Palette - Light Mode */
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+
+  /* Badge Colors - Light Mode (white background with matching borders) */
+  --badge-success-bg: #fff;
+  --badge-success-text: #15803d;
+  --badge-success-border: #15803d;
+  --badge-secondary-bg: #fff;
+  --badge-secondary-text: #4b5563;
+  --badge-secondary-border: #4b5563;
+  --badge-info-bg: #fff;
+  --badge-info-text: #1d4ed8;
+  --badge-info-border: #1d4ed8;
+  --badge-danger-bg: #fff;
+  --badge-danger-text: #b91c1c;
+  --badge-danger-border: #b91c1c;
+
+  /* No highlight outline for light theme */
+  --highlight-outline: transparent;
+}
+
+[data-theme='blue-highlights'] {
+  /* Blue Highlights Theme - Based on Dark Mode with blue outlines */
+  --bg-canvas: #0d1117;
+  --bg-canvas-subtle: #161b22;
+  --fg-default: #fff;
+  --fg-muted: #bdc4cc;
+  --border-default: #30363d;
+  --accent-emphasis: #1f6feb;
+  --success-emphasis: #238636;
+  --attention-emphasis: #d29922;
+  --danger-emphasis: #da3633;
+  --danger-subtle: #da363320;
+
+  /* Dynamic Gray Palette - Dark Mode */
+  --gray-50: #161b22;
+  --gray-100: #21262d;
+  --gray-200: #30363d;
+  --gray-300: #484f58;
+  --gray-400: #8b949e;
+  --gray-500: #a9b5c3;
+  --gray-600: #c9d1d9;
+  --gray-700: #e6edf3;
+  --gray-800: #f0f6fc;
+  --gray-900: #fff;
+
+  /* Dynamic Blue Palette - Dark Mode */
+  --blue-50: #1f6feb20;
+  --blue-100: #1f6feb40;
+  --blue-500: #1f6feb;
+  --blue-600: #1f6feb;
+  --blue-700: #388bfd;
+
+  /* Badge Colors - Blue Highlights (matching canvas background) */
+  --badge-success-bg: #0d1117;
+  --badge-success-text: #4ade80;
+  --badge-success-border: #4ade80;
+  --badge-secondary-bg: #0d1117;
+  --badge-secondary-text: #9ca3af;
+  --badge-secondary-border: #9ca3af;
+  --badge-info-bg: #0d1117;
+  --badge-info-text: #60a5fa;
+  --badge-info-border: #60a5fa;
+  --badge-danger-bg: #0d1117;
+  --badge-danger-text: #f87171;
+  --badge-danger-border: #f87171;
+
+  /* Blue highlight outline for this theme */
+  --highlight-outline: #3b82f6;
+}
+
+[data-theme='mint-condition'] {
+  /* Mint Condition Theme - Inspired by institutional fintech aesthetics */
+
+  /* Clean, light background with teal accents - pristine and professional */
+  --bg-canvas: #fff;
+  --bg-canvas-subtle: #f8fafa;
+  --fg-default: #1a1a2e;
+  --fg-muted: #4a5568;
+  --border-default: #d6e0e0;
+  --accent-emphasis: #20caad;
+  --success-emphasis: #20caad;
+  --attention-emphasis: #e6a919;
+  --danger-emphasis: #e53e3e;
+
+  /* Dynamic Gray Palette - Light Mode with cool undertones */
+  --gray-50: #f8fafa;
+  --gray-100: #f0f4f4;
+  --gray-200: #d6e0e0;
+  --gray-300: #b8c9c9;
+  --gray-400: #8a9a9a;
+  --gray-500: #5f7070;
+  --gray-600: #4a5568;
+  --gray-700: #2d3748;
+  --gray-800: #1a202c;
+  --gray-900: #1a1a2e;
+
+  /* Dynamic Teal Palette - Mint Condition */
+  --blue-50: #e6faf6;
+  --blue-100: #b3f0e6;
+  --blue-500: #20caad;
+  --blue-600: #1bb89d;
+  --blue-700: #17a68d;
+
+  /* Badge Colors - Light Mode with teal accents */
+  --badge-success-bg: #e6faf6;
+  --badge-success-text: #17a68d;
+  --badge-success-border: #20caad;
+  --badge-secondary-bg: #f0f4f4;
+  --badge-secondary-text: #5f7070;
+  --badge-secondary-border: #8a9a9a;
+  --badge-info-bg: #e6faf6;
+  --badge-info-text: #1bb89d;
+  --badge-info-border: #20caad;
+  --badge-danger-bg: #fff5f5;
+  --badge-danger-text: #c53030;
+  --badge-danger-border: #e53e3e;
+
+  /* Subtle teal highlight outline for pristine feel */
+  --highlight-outline: #20caad40;
+}
+
+[data-theme='mint-dark'] {
+  /* Mint Dark Theme - Dark mode with mint/teal accents */
+
+  /* Dark background with teal accents */
+  --bg-canvas: #0a1612;
+  --bg-canvas-subtle: #0f1f1a;
+  --fg-default: #e8f5f2;
+  --fg-muted: #94b8ae;
+  --border-default: #1e3a32;
+  --accent-emphasis: #20caad;
+  --success-emphasis: #20caad;
+  --attention-emphasis: #e6a919;
+  --danger-emphasis: #e53e3e;
+  --danger-subtle: #e53e3e20;
+
+  /* Dynamic Gray Palette - Dark Mode with teal undertones */
+  --gray-50: #0f1f1a;
+  --gray-100: #152923;
+  --gray-200: #1e3a32;
+  --gray-300: #2d5248;
+  --gray-400: #5a8a7d;
+  --gray-500: #7aa99b;
+  --gray-600: #94b8ae;
+  --gray-700: #b8d4cb;
+  --gray-800: #d4e8e2;
+  --gray-900: #e8f5f2;
+
+  /* Dynamic Teal Palette - Mint Dark */
+  --blue-50: #20caad15;
+  --blue-100: #20caad30;
+  --blue-500: #20caad;
+  --blue-600: #25d9ba;
+  --blue-700: #2aecc9;
+
+  /* Badge Colors - Dark Mode with teal accents */
+  --badge-success-bg: #0a1612;
+  --badge-success-text: #2aecc9;
+  --badge-success-border: #20caad;
+  --badge-secondary-bg: #0a1612;
+  --badge-secondary-text: #94b8ae;
+  --badge-secondary-border: #5a8a7d;
+  --badge-info-bg: #0a1612;
+  --badge-info-text: #25d9ba;
+  --badge-info-border: #20caad;
+  --badge-danger-bg: #1a0a0a;
+  --badge-danger-text: #fc8181;
+  --badge-danger-border: #e53e3e;
+
+  /* Subtle teal highlight outline for dark mode */
+  --highlight-outline: #20caad50;
+}
+
+/* Custom Component Classes */
+@layer components {
+  .btn-primary {
+    @apply bg-[var(--accent-emphasis)] hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-[var(--bg-canvas-subtle)] border border-[var(--border-default)] hover:border-gray-400 text-[var(--fg-default)] px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-success {
+    @apply bg-[var(--success-emphasis)] hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-danger {
+    @apply bg-[var(--danger-emphasis)] hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 bg-[var(--bg-canvas-subtle)] border-2 border-[var(--border-default)] text-[var(--fg-default)] rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-200 disabled:opacity-60 disabled:cursor-not-allowed placeholder-gray-600;
+
+    outline: 1px solid var(--highlight-outline);
+    outline-offset: 1px;
+  }
+
+  .select-field {
+    @apply w-full px-3 py-2 bg-[var(--bg-canvas-subtle)] border-2 border-[var(--border-default)] text-[var(--fg-default)] rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-200 disabled:opacity-60 disabled:cursor-not-allowed;
+
+    outline: 1px solid var(--highlight-outline);
+    outline-offset: 1px;
+  }
+
+  .card {
+    @apply bg-[var(--bg-canvas-subtle)] rounded-xl border border-[var(--border-default)] p-4 shadow-none;
+
+    outline: 1px solid var(--highlight-outline);
+    outline-offset: 0;
+  }
+
+  .card-sm {
+    @apply bg-[var(--bg-canvas-subtle)] rounded-lg border border-[var(--border-default)] p-3 shadow-none;
+
+    outline: 1px solid var(--highlight-outline);
+    outline-offset: 0;
+  }
+
+  .badge-active {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+
+    background-color: var(--badge-success-bg);
+    color: var(--badge-success-text);
+    border: 1px solid var(--badge-success-border);
+  }
+
+  .badge-inactive {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+
+    background-color: var(--badge-secondary-bg);
+    color: var(--badge-secondary-text);
+    border: 1px solid var(--badge-secondary-border);
+  }
+
+  .badge-submitted {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+
+    background-color: var(--badge-info-bg);
+    color: var(--badge-info-text);
+    border: 1px solid var(--badge-info-border);
+  }
+
+  .badge-rejected {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+
+    background-color: var(--badge-danger-bg);
+    color: var(--badge-danger-text);
+    border: 1px solid var(--badge-danger-border);
+  }
+
+  .badge-draft {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+
+    background-color: var(--badge-secondary-bg);
+    color: var(--badge-secondary-text);
+    border: 1px solid var(--badge-secondary-border);
+  }
+
+  .badge-reopened {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+
+    background-color: var(--bg-canvas);
+    color: var(--attention-emphasis);
+    border: 1px solid var(--attention-emphasis);
+  }
+
+  .table-row-hover {
+    @apply transition-colors duration-150 hover:shadow-[inset_0_0_0_1px_var(--accent-emphasis)] relative;
+  }
+
+  .table-container {
+    @apply rounded-lg border border-[var(--border-default)] overflow-x-auto;
+
+    outline: 1px solid var(--highlight-outline);
+    outline-offset: 0;
+  }
+
+  /* Panel with header - consistent styling for data panels */
+  .panel {
+    @apply rounded-lg border border-[var(--border-default)] overflow-hidden;
+
+    outline: 1px solid var(--highlight-outline);
+    outline-offset: 0;
+  }
+
+  .panel-header {
+    @apply bg-[var(--bg-canvas)] px-3 py-2 border-b border-[var(--border-default)];
+  }
+
+  .panel-header-title {
+    @apply text-xs font-semibold;
+
+    color: var(--fg-default);
+  }
+
+  .panel-body {
+    @apply bg-[var(--bg-canvas-subtle)];
+  }
+
+  /* Table header row with accented background */
+  .table-header-accent {
+    @apply bg-[var(--bg-canvas)];
+  }
+
+  .table-header-accent th {
+    @apply px-3 py-2 text-left text-xs font-semibold border-b border-[var(--border-default)];
+
+    color: var(--fg-default);
+  }
+
+  .form-container {
+    @apply p-3 border border-[var(--border-default)] rounded-lg bg-[var(--bg-canvas-subtle)];
+
+    outline: 1px solid var(--highlight-outline);
+    outline-offset: 0;
+  }
+
+  .empty-state {
+    @apply p-8 text-center text-xs text-[var(--fg-muted)] border border-dashed border-[var(--border-default)] rounded-lg;
+
+    outline: 1px solid var(--highlight-outline);
+    outline-offset: 0;
+  }
+
+  table {
+    outline: 1px solid var(--highlight-outline);
+    outline-offset: 0;
+  }
+
+  .link {
+    @apply text-[var(--fg-muted)] hover:text-[var(--accent-emphasis)] hover:underline transition-colors duration-200;
+  }
+
+  .gradient-text {
+    @apply text-[var(--fg-default)];
+
+    /* Simplified for dark mode, or keep gradient if desired but ensure contrast */
+  }
+
+  .gradient-bg {
+    @apply bg-[var(--bg-canvas)];
+  }
+
+  /* Standard Text Utilities */
+  .text-default {
+    @apply text-[var(--fg-default)];
+  }
+
+  .text-muted {
+    @apply text-[var(--fg-muted)];
+  }
+
+  .text-success {
+    @apply text-[var(--success-emphasis)];
+  }
+
+  .text-warning {
+    @apply text-[var(--attention-emphasis)];
+  }
+
+  .text-danger {
+    @apply text-[var(--danger-emphasis)];
+  }
+
+  .text-link {
+    @apply text-[var(--accent-emphasis)] hover:underline cursor-pointer;
+  }
+
+  .text-accent {
+    @apply text-[var(--accent-emphasis)];
+  }
+
+  /* Toggle Switch Component */
+  .toggle-switch {
+    @apply relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-emphasis)] focus:ring-offset-2 cursor-pointer;
+
+    background-color: var(--gray-300);
+  }
+
+  .toggle-switch[aria-checked="true"] {
+    background-color: var(--success-emphasis);
+  }
+
+  .toggle-switch:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  .toggle-switch-thumb {
+    @apply inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform duration-200;
+  }
+
+  .toggle-switch[aria-checked="false"] .toggle-switch-thumb {
+    @apply translate-x-1;
+  }
+
+  .toggle-switch[aria-checked="true"] .toggle-switch-thumb {
+    @apply translate-x-6;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Base Styles */
+@layer base {
+  body {
+    @apply antialiased text-[var(--fg-default)] bg-[var(--bg-canvas)];
+
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1 {
+    @apply text-lg font-bold text-[var(--fg-default)];
+  }
+
+  h2 {
+    @apply text-base font-semibold text-[var(--fg-default)];
+  }
+
+  h3 {
+    @apply text-sm font-medium text-[var(--fg-default)];
+  }
+
+  .page-title {
+    @apply text-lg font-bold text-[var(--fg-default)];
+  }
+
+  .page-subtitle {
+    @apply text-xs text-[var(--fg-muted)] mt-0.5;
+  }
+}
+
+/* Custom Scrollbar */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #30363d #0d1117;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #0d1117;
+    border-radius: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #8b949e;
+  }
+}
+
+/* Animation Utilities */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+
+/* Animation Delays */
+.animation-delay-100 {
+  animation-delay: 100ms;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+  animation-fill-mode: forwards;
+  opacity: 0;
 }
