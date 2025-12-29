@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, X, Clock } from "lucide-react"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 interface NavigationProps {
@@ -71,9 +71,12 @@ export function Navigation({ siteName = "TS@BigRock" }: NavigationProps) {
             >
               Sign In
             </a>
-            <Button size="sm">
+            <a
+              href="https://ts.bigrock.uk.com/auth/register"
+              className={cn(buttonVariants({ size: "sm" }))}
+            >
               Get Started
-            </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -107,9 +110,12 @@ export function Navigation({ siteName = "TS@BigRock" }: NavigationProps) {
               >
                 Sign In
               </a>
-              <Button className="w-full">
+              <a
+                href="https://ts.bigrock.uk.com/auth/register"
+                className={cn(buttonVariants(), "w-full text-center")}
+              >
                 Get Started
-              </Button>
+              </a>
             </div>
           </div>
         </div>
