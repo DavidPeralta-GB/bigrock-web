@@ -42,16 +42,16 @@ export function Hero({
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--accent-subtle)] border border-[var(--accent-emphasis)]/20 mb-8 animate-fade-in">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-400/20 mb-8 animate-fade-in">
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-sm font-medium text-[var(--accent-fg)]">
+          <span className="text-sm font-medium text-blue-400">
             Now with AI-powered time suggestions
           </span>
         </div>
 
         {/* Headline */}
         <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[var(--fg-default)] mb-6 leading-tight animate-slide-up">
-          <span className="bg-gradient-to-r from-[var(--fg-default)] via-[var(--accent-fg)] to-[var(--accent-emphasis)] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-white via-blue-400 to-cyan-400 bg-clip-text text-transparent">
             {headline}
           </span>
         </h1>
