@@ -1,8 +1,9 @@
 // app/api/revalidate/route.ts
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { parseBody } from 'next-sanity/webhook';
+import { type NextRequest } from 'next/server';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const { isValidSignature, body } = await parseBody(
       request,
