@@ -55,7 +55,7 @@ export function Footer({
       { label: "Privacy", href: "/privacy-policy" },
       { label: "Terms", href: "/terms" },
       { label: "Security", href: "#" },
-      { label: "Cookies", href: "#" },
+      { label: "Cookies", href: "/cookies" },
     ],
   }
 
