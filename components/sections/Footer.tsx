@@ -52,8 +52,8 @@ export function Footer({
       { label: "Status", href: "#" },
     ],
     Legal: [
-      { label: "Privacy", href: "#" },
-      { label: "Terms", href: "#" },
+      { label: "Privacy", href: "/privacy-policy" },
+      { label: "Terms", href: "/terms" },
       { label: "Security", href: "#" },
       { label: "Cookies", href: "#" },
     ],

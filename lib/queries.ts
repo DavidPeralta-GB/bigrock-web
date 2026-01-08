@@ -188,3 +188,25 @@ export async function getLandingPageData() {
     }
   }`)
 }
+
+// Get page by slug (for dynamic routes like /privacy-policy)
+export async function getPageBySlug(slug: string) {
+  return client.fetch(
+    `*[_type == "page" && slug.current == $slug][0]{
+      title,
+      "slug": slug.current,
+      metaDescription,
+      content
+    }`,
+    { slug }
+  )
+}
+
+// Get all page slugs (for static generation)
+export async function getAllPageSlugs() {
+  return client.fetch(`
+    *[_type == "page" && defined(slug.current)]{
+      "slug": slug.current
+    }
+  `)
+}
