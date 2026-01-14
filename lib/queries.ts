@@ -3,7 +3,7 @@ import { client } from './sanity'
 // Hero Section
 export async function getHero() {
   return client.fetch(`
-    *[_type == "hero"][0]{
+    *[_id == "hero"][0]{
       headline,
       subheadline,
       ctaPrimary,
@@ -120,7 +120,7 @@ export async function getSiteSettings() {
 // Get all landing page data in one query
 export async function getLandingPageData() {
   return client.fetch(`{
-    "hero": *[_type == "hero"][0]{
+    "hero": *[_id == "hero"][0]{
       headline,
       subheadline,
       ctaPrimary,
