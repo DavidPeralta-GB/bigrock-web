@@ -20,16 +20,18 @@ interface FooterProps {
 export function Footer({
   siteName = "TS@BigRock",
   tagline = "Professional Timesheet Management",
-  contact = {
+  contact,
+  social,
+}: FooterProps) {
+  const resolvedContact = contact ?? {
     email: "hello@bigrock.com",
     phone: "+1 (555) 123-4567",
-  },
-  social = {
+  }
+  const resolvedSocial = social ?? {
     twitter: "#",
     linkedin: "#",
     github: "#",
-  },
-}: FooterProps) {
+  }
   const currentYear = new Date().getFullYear()
 
   const footerLinks = {
@@ -78,27 +80,27 @@ export function Footer({
             </p>
             {/* Social Links */}
             <div className="flex items-center gap-4">
-              {social.twitter && (
+              {resolvedSocial.twitter && (
                 <a
-                  href={social.twitter}
+                  href={resolvedSocial.twitter}
                   className="text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
                   aria-label="Twitter"
                 >
                   <Twitter className="w-5 h-5" />
                 </a>
               )}
-              {social.linkedin && (
+              {resolvedSocial.linkedin && (
                 <a
-                  href={social.linkedin}
+                  href={resolvedSocial.linkedin}
                   className="text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
                   aria-label="LinkedIn"
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>
               )}
-              {social.github && (
+              {resolvedSocial.github && (
                 <a
-                  href={social.github}
+                  href={resolvedSocial.github}
                   className="text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
                   aria-label="GitHub"
                 >
@@ -135,12 +137,12 @@ export function Footer({
           <p className="text-sm text-[var(--fg-muted)]">
             {currentYear} {siteName}. All rights reserved.
           </p>
-          {contact.email && (
+          {resolvedContact.email && (
             <a
-              href={`mailto:${contact.email}`}
+              href={`mailto:${resolvedContact.email}`}
               className="text-sm text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
             >
-              {contact.email}
+              {resolvedContact.email}
             </a>
           )}
         </div>
