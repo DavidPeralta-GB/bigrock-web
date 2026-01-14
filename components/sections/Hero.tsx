@@ -45,7 +45,7 @@ export function Hero({
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-400/20 mb-8 animate-fade-in">
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           <span className="text-sm font-medium text-blue-400">
-            Now with AI-powered time suggestions
+            ** Site Under Construction **
           </span>
         </div>
 
