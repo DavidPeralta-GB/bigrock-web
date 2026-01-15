@@ -1,29 +1,8 @@
---
-description: Investigate and fix bugs with root cause analysis and verification
+---
+description: --
 ---
 
-Help me fix a bug in the timesheet application. Follow this workflow:
-
----
-
-## Phase 0: Branch Setup (REQUIRED)
-
-**All bug fixes MUST happen on the `dev` branch.**
-
-1. Check current branch: `git branch --show-current`
-2. If NOT on `dev`:
-   - Stash any uncommitted changes: `git stash`
-   - Switch to dev: `git checkout dev`
-   - Pull latest: `git pull origin dev`
-   - Apply stash if needed: `git stash pop`
-3. If on `dev`: Pull latest changes: `git pull origin dev`
-
-**Branch workflow:**
-- `dev` → Active development (you are here)
-- `qa` → Testing/staging (merge dev → qa when ready for QA)
-- `main` → Production (requires PR with approval)
-
-**Do NOT commit directly to `main` or `qa` branches.**
+Help me fix a bug in the BigRock website. Follow this workflow:
 
 ---
 
@@ -37,20 +16,18 @@ Help me fix a bug in the timesheet application. Follow this workflow:
    - What are the steps to reproduce?
 
 2. **Reproduce the issue:**
-   - Follow the reproduction steps
    - Check browser console for errors
-   - Check server logs if applicable
+   - Check Next.js dev server logs
    - Note any error messages verbatim
 
 3. **Identify affected code paths:**
    - Which pages/components are involved?
-   - Which API routes are called?
-   - Which database queries execute?
+   - Is this a Sanity CMS data issue or frontend code issue?
+   - Check if data is being fetched correctly from Sanity
 
 4. **Check for existing context:**
-   - Search `docs/FIXES.md` for similar past issues
-   - Check if this is a regression from recent changes
    - Review recent commits to affected files
+   - Check if this is a regression from recent changes
 
 ---
 
@@ -58,29 +35,25 @@ Help me fix a bug in the timesheet application. Follow this workflow:
 
 **Goal: Find the actual source of the bug, not just the symptom.**
 
-Use the **code-explorer** agent if needed to trace the issue:
-
 1. **Trace the data flow:**
-   - Where does the data originate?
-   - How is it transformed along the way?
-   - Where does it fail or become incorrect?
+   - Is data coming correctly from Sanity CMS?
+   - Is the GROQ query returning expected results?
+   - Is the component rendering the data correctly?
 
 2. **Identify the root cause:**
-   - Is it a logic error?
+   - Is it a logic error in the component?
    - Is it a type mismatch or null/undefined issue?
-   - Is it a race condition or timing issue?
-   - Is it a missing validation or edge case?
-   - Is it a multi-tenant scoping issue (missing company_code)?
+   - Is it a Sanity schema/query mismatch?
+   - Is it a styling/CSS issue?
+   - Is it a missing null check for optional CMS fields?
 
 3. **Assess the scope:**
    - Is this bug isolated or does it affect other areas?
    - Are there similar patterns elsewhere that might have the same issue?
-   - Is this a symptom of a deeper architectural problem?
 
 4. **Document your findings:**
    - State the root cause clearly
    - Explain why the bug occurs
-   - Note any related issues discovered
 
 **Present your analysis to the user before proceeding to the fix.**
 
@@ -92,25 +65,18 @@ Use the **code-explorer** agent if needed to trace the issue:
 
 1. **Choose fix strategy:**
    - **Surgical fix:** Minimal change to address the specific issue
-   - **Refactor:** Broader changes needed if the code structure is fundamentally flawed
-   - **Workaround:** Temporary fix if proper fix requires more investigation
+   - **Defensive coding:** Add null checks for optional CMS fields
+   - **Query fix:** Update GROQ query if data isn't being fetched correctly
 
 2. **Identify all changes needed:**
    - List specific files to modify
-   - Note any database changes required
-   - Consider if translations need updating
+   - Note if Sanity schema needs updating (in separate studio project)
 
 3. **Assess regression risk:**
    - What other functionality might be affected?
-   - Are there existing tests that cover this area?
    - What manual testing should be done?
 
-4. **Plan test cases:**
-   - How will you verify the fix works?
-   - What edge cases should be tested?
-   - Should automated tests be added?
-
-**⚠️ STOP: Present your fix plan to the user and wait for explicit approval before proceeding to Phase 4.**
+**Present your fix plan to the user and wait for approval before proceeding.**
 
 ---
 
@@ -118,16 +84,11 @@ Use the **code-explorer** agent if needed to trace the issue:
 
 **Only proceed after user has approved the fix plan.**
 
-**Apply the fix following project conventions.**
-
-**Security requirements (always verify):**
-- Use `requireAuth()`, `requireCompanyAccess()`, etc. from `lib/api-auth.ts`
-- Use `getTenantPrisma(companyCode)` for automatic company_code filtering
-- Validate all input with Zod schemas from `lib/schemas.ts`
-
-**If updating UI text:**
-- Use translation keys from `messages/*.json`
-- Update ALL 5 language files: en, es, fr, de, pt
+**Key patterns to follow:**
+- Use `urlFor()` from `lib/sanity.ts` for image URLs
+- Handle optional CMS fields with null checks (e.g., `field?.property`)
+- Use TypeScript types that match Sanity schema
+- Follow existing component patterns in `components/sections/`
 
 **Keep changes minimal:**
 - Fix the bug, don't refactor unrelated code
@@ -140,80 +101,48 @@ Use the **code-explorer** agent if needed to trace the issue:
 
 **Ensure the fix works and doesn't break anything else.**
 
-1. **Run TypeScript build:**
+1. **Run TypeScript check:**
    ```bash
    npx tsc --noEmit
    ```
 
-2. **Test the fix:**
-   - Verify the original bug is resolved
-   - Test the happy path still works
-   - Test edge cases identified in Phase 3
-   - Check for regressions in related functionality
-
-3. **Run relevant tests (if available):**
+2. **Run ESLint:**
    ```bash
-   npm run test:e2e -- --grep "relevant test pattern"
+   npm run lint
    ```
 
-4. **Use code-reviewer agent** for complex fixes:
-   - Security vulnerability check
-   - Multi-tenant isolation verification
-   - Type safety review
+3. **Test the fix:**
+   - Verify the original bug is resolved
+   - Test the component still works with various CMS data states
+   - Check for regressions in related functionality
+
+4. **Test the build:**
+   ```bash
+   npm run build
+   ```
 
 **Fix any issues found before proceeding.**
 
 ---
 
-## Phase 6: Pre-Commit Checklist
-
-**Before committing, verify these items:**
-
-- [ ] TypeScript build passes (`npx tsc --noEmit`)
-- [ ] Bug is verified fixed
-- [ ] No regressions introduced
-- [ ] `docs/FIXES.md` updated with root cause and solution
-- [ ] If fix changes user-facing behavior documented in `content/help/*.md`, update help content
-- [ ] If fix affects troubleshooting guidance, update `content/help/troubleshooting.md`
-
----
-
-## Phase 7: Commit & Deploy
+## Phase 6: Commit
 
 **Document the fix and commit the changes.**
 
-1. **Update `docs/FIXES.md`** with:
-   ```markdown
-   ## [Date] - Brief description
-
-   **Symptom:** What the user experienced
-   **Root Cause:** Why it happened
-   **Solution:** What was changed to fix it
-   **Files Changed:** List of modified files
-   ```
-
-2. **Commit with conventional commit format:**
+1. **Commit with conventional commit format:**
    ```bash
    git add .
    git commit -m "fix: <brief description>
 
    <optional longer explanation of what was wrong and how it was fixed>
 
-   🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
    Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
    ```
 
-3. **Push to dev branch:**
+2. **Push changes:**
    ```bash
-   git push origin dev
+   git push
    ```
-
-4. **Run `/monitor_build`** to verify Amplify deployment succeeds
-
-**Promotion workflow (when ready):**
-- **Dev → QA:** `git checkout qa && git merge dev && git push origin qa`
-- **QA → Main:** Create a Pull Request from `qa` to `main` (requires approval)
 
 ---
 

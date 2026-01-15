@@ -2,61 +2,54 @@
 description: Check Amplify build status and auto-fix failures
 ---
 
-# Monitor AWS Amplify Build and Auto-Debug Failures
+# Verify Build and Auto-Fix Failures
 
-Check the status of the latest AWS Amplify build for this project.
+Run the Next.js build and automatically debug any failures.
 
 **Your task:**
 
-1. Run the build status check script:
+1. **Run the production build:**
    ```bash
-   bash .claude/hooks/check-amplify-build.sh
+   npm run build
    ```
 
-2. Analyze the output:
-   - If build succeeded: Inform the user the deployment is live
-   - If build is in progress: Tell the user to wait and check again
+2. **Analyze the output:**
+   - If build succeeded: Inform the user the build is ready
    - If build failed: Proceed to step 3
 
 3. **If build failed**, automatically debug and fix:
 
-   a. Read the error logs from `.claude/.amplify-build-error.log`
-
-   b. Analyze the errors and identify the root cause:
+   a. Analyze the errors and identify the root cause:
       - TypeScript compilation errors
-      - Missing dependencies or type definitions
-      - Configuration issues
-      - Environment variable problems
-      - Build script failures
+      - ESLint errors
+      - Missing dependencies
+      - Import/export issues
+      - Sanity query or type issues
 
-   c. Implement fixes:
-      - For missing types: Install appropriate @types packages
-      - For TypeScript errors: Fix the code issues
-      - For config issues: Update amplify.yml or next.config.js
-      - For dependency issues: Update package.json and install
+   b. Implement fixes:
+      - For TypeScript errors: Fix type issues in the code
+      - For missing types: Add proper TypeScript interfaces
+      - For import errors: Fix import paths or add missing exports
+      - For Sanity issues: Check GROQ queries and null handling
 
-   d. Test the fix locally:
+   c. Run the build again to verify the fix:
       ```bash
       npm run build
       ```
 
-   e. If local build succeeds, commit and push:
+   d. If build succeeds, commit and push:
       ```bash
       git add .
-      git commit -m "Fix: [description of what you fixed]
+      git commit -m "fix: <description of what you fixed>
 
-      🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-      Co-Authored-By: Claude <noreply@anthropic.com>"
+      Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
       git push
       ```
 
-   f. Inform the user that fixes have been applied and deployed
-
-4. Provide a summary of:
+4. **Provide a summary of:**
    - Build status
    - Any errors found
    - Fixes applied (if any)
    - Next steps for the user
 
-**Important**: Always verify that fixes work locally before pushing to avoid repeated failed deployments.
+**Important**: Always verify fixes work before pushing to avoid repeated failed deployments.
