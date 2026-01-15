@@ -61,14 +61,18 @@ export function Hero({
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-slide-up animation-delay-200">
-          <Button size="lg" className="group px-8">
-            {ctaPrimary.text}
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          <Button variant="secondary" size="lg" className="group px-8">
-            <Play className="mr-2 w-4 h-4" />
-            {ctaSecondary.text}
-          </Button>
+          <a href={ctaPrimary?.link || "#"}>
+            <Button size="lg" className="group px-8">
+              {ctaPrimary?.text || "Start Free Trial"}
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </a>
+          <a href={ctaSecondary?.link || "#"}>
+            <Button variant="secondary" size="lg" className="group px-8">
+              <Play className="mr-2 w-4 h-4" />
+              {ctaSecondary?.text || "Watch Demo"}
+            </Button>
+          </a>
         </div>
 
         {/* Stats */}
