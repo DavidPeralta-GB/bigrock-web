@@ -234,3 +234,32 @@ app/
     [slug]/
       page.tsx          # Individual service pages
 ```
+
+## Claude Commands
+
+The following slash commands are available to help with development:
+
+| Command | Description |
+|---------|-------------|
+| `/bugfix` | Investigate and fix bugs with root cause analysis |
+| `/feature` | Implement new features with exploration and planning |
+| `/review` | Review code for bugs, security, and best practices |
+| `/monitor_build` | Run build and auto-fix any failures |
+| `/update_docs` | Update documentation to reflect code changes |
+| `/update_tests` | Add or update test cases (test setup guide included) |
+
+### Usage
+
+Type the command name to invoke it:
+```
+/bugfix
+/feature
+/review
+```
+
+### Workflow Recommendations
+
+1. **Adding features**: Use `/feature` to get a structured workflow with exploration, planning, and implementation phases
+2. **Fixing bugs**: Use `/bugfix` for systematic root cause analysis before fixing
+3. **After changes**: Use `/review` to check code quality, then `/monitor_build` to verify the build passes
+4. **Documentation**: Use `/update_docs` after significant changes to keep CLAUDE.md current

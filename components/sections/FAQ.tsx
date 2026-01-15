@@ -55,7 +55,7 @@ export function FAQ({
 
         {/* FAQ Accordion */}
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {(faqs || []).map((faq, index) => (
             <div
               key={faq._id || index}
               className="border border-[var(--border-default)] rounded-lg overflow-hidden bg-[var(--bg-inset)]"

@@ -52,7 +52,7 @@ export function Testimonials({
 
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
+          {(testimonials || []).map((testimonial, index) => (
             <Card
               key={testimonial._id || index}
               className="relative bg-[var(--bg-canvas)] border-[var(--border-default)] hover:border-[var(--accent-emphasis)]/30 transition-all duration-300"

@@ -82,7 +82,7 @@ export function HowItWorks({
           <div className="hidden lg:block absolute top-24 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-[var(--accent-emphasis)] via-[var(--accent-emphasis)] to-[var(--accent-emphasis)] opacity-20" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => {
+            {(steps || []).map((step, index) => {
               const IconComponent = iconMap[step.icon] || Clock
               return (
                 <div
