@@ -84,7 +84,7 @@ export function Pricing({
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {tiers.map((tier, index) => (
+          {(tiers || []).map((tier, index) => (
             <Card
               key={tier._id || index}
               className={cn(
@@ -121,7 +121,7 @@ export function Pricing({
               <CardContent className="pt-4">
                 {/* Features List */}
                 <ul className="space-y-3 mb-8">
-                  {tier.features.map((feature, featureIndex) => (
+                  {(tier.features || []).map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start gap-3">
                       <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
                       <span className="text-sm text-[var(--fg-muted)]">

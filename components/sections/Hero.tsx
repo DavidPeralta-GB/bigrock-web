@@ -73,7 +73,7 @@ export function Hero({
 
         {/* Stats */}
         <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-16 animate-fade-in animation-delay-300">
-          {stats.map((stat, index) => (
+          {(stats || []).map((stat, index) => (
             <div key={index} className="text-center">
               <div className="text-3xl sm:text-4xl font-bold text-[var(--fg-default)] mb-1">
                 {stat.value}
