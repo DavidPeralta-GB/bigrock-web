@@ -13,8 +13,10 @@ export const metadata: Metadata = {
   title: "TS@BigRock - Professional Timesheet Management",
   description: "The only timesheet management app you need. Track time, manage approvals, and streamline your workforce with our professional solution.",
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/favicon-16-filled-blue-dark.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32-filled-blue-dark.png", sizes: "32x32", type: "image/png" },
+    ],
   },
 };
 
