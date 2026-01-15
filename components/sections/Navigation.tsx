@@ -8,9 +8,10 @@ import { cn } from "@/lib/utils"
 
 interface NavigationProps {
   siteName?: string
+  logo?: string
 }
 
-export function Navigation({ siteName = "TS@BigRock" }: NavigationProps) {
+export function Navigation({ siteName = "TS@BigRock", logo }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -42,9 +43,17 @@ export function Navigation({ siteName = "TS@BigRock" }: NavigationProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg bg-[var(--accent-emphasis)] flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Clock className="w-5 h-5 text-white" />
-            </div>
+            {logo ? (
+              <img
+                src={logo}
+                alt={siteName}
+                className="h-9 w-auto group-hover:scale-105 transition-transform"
+              />
+            ) : (
+              <div className="w-9 h-9 rounded-lg bg-[var(--accent-emphasis)] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Clock className="w-5 h-5 text-white" />
+              </div>
+            )}
             <span className="text-lg font-bold text-[var(--fg-default)]">
               {siteName}
             </span>

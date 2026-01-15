@@ -23,7 +23,7 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-[var(--bg-canvas)]">
       {/* Navigation */}
-      <Navigation siteName={siteSettings?.siteName} />
+      <Navigation siteName={siteSettings?.siteName} logo={siteSettings?.logo} />
 
       {/* Hero Section */}
       <Hero
