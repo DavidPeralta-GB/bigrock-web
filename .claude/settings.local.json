@@ -10,7 +10,8 @@
       "Bash(git stash pop:*)",
       "Bash(npm run build:*)",
       "Bash(aws:*)",
-      "Bash(aws sts get-caller-identity:*)"
+      "Bash(aws sts get-caller-identity:*)",
+      "Bash(curl:*)"
     ],
     "defaultMode": "bypassPermissions"
   }
