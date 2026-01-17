@@ -78,8 +78,10 @@ export default async function Home() {
       <Footer
         siteName={siteSettings?.siteName}
         tagline={siteSettings?.tagline}
+        logo={siteSettings?.logo}
         contact={siteSettings?.contact}
         social={siteSettings?.social}
+        footerSections={siteSettings?.footerSections}
       />
     </main>
   )

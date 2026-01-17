@@ -3,9 +3,20 @@
 import Link from "next/link"
 import { Clock, Twitter, Linkedin, Github } from "lucide-react"
 
+interface FooterLink {
+  label: string
+  href: string
+}
+
+interface FooterSection {
+  title: string
+  links: FooterLink[]
+}
+
 interface FooterProps {
   siteName?: string
   tagline?: string
+  logo?: string
   contact?: {
     email?: string
     phone?: string
@@ -15,13 +26,41 @@ interface FooterProps {
     linkedin?: string
     github?: string
   }
+  footerSections?: FooterSection[]
 }
+
+const defaultFooterSections: FooterSection[] = [
+  {
+    title: "Product",
+    links: [
+      { label: "Features", href: "#features" },
+      { label: "Pricing", href: "#pricing" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "#" },
+      { label: "Contact", href: "#" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy", href: "/privacy-policy" },
+      { label: "Terms", href: "/terms" },
+      { label: "Cookies", href: "/cookies" },
+    ],
+  },
+]
 
 export function Footer({
   siteName = "TS@BigRock",
   tagline = "Professional Timesheet Management",
+  logo,
   contact,
   social,
+  footerSections,
 }: FooterProps) {
   const resolvedContact = contact ?? {
     email: "hello@bigrock.com",
@@ -32,34 +71,8 @@ export function Footer({
     linkedin: "#",
     github: "#",
   }
+  const resolvedSections = footerSections?.length ? footerSections : defaultFooterSections
   const currentYear = new Date().getFullYear()
-
-  const footerLinks = {
-    Product: [
-      { label: "Features", href: "#features" },
-      { label: "Pricing", href: "#pricing" },
-      { label: "Integrations", href: "#" },
-      { label: "API", href: "#" },
-    ],
-    Company: [
-      { label: "About", href: "#" },
-      { label: "Blog", href: "#" },
-      { label: "Careers", href: "#" },
-      { label: "Press", href: "#" },
-    ],
-    Resources: [
-      { label: "Documentation", href: "#" },
-      { label: "Help Center", href: "#" },
-      { label: "Community", href: "#" },
-      { label: "Status", href: "#" },
-    ],
-    Legal: [
-      { label: "Privacy", href: "/privacy-policy" },
-      { label: "Terms", href: "/terms" },
-      { label: "Security", href: "#" },
-      { label: "Cookies", href: "/cookies" },
-    ],
-  }
 
   return (
     <footer className="bg-[var(--bg-inset)] border-t border-[var(--border-default)]">
@@ -68,9 +81,13 @@ export function Footer({
           {/* Brand Column */}
           <div className="col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-[var(--accent-emphasis)] flex items-center justify-center">
-                <Clock className="w-5 h-5 text-white" />
-              </div>
+              {logo ? (
+                <img src={logo} alt={siteName} className="h-9 w-auto" />
+              ) : (
+                <div className="w-9 h-9 rounded-lg bg-[var(--accent-emphasis)] flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-white" />
+                </div>
+              )}
               <span className="text-lg font-bold text-[var(--fg-default)]">
                 {siteName}
               </span>
@@ -111,16 +128,16 @@ export function Footer({
           </div>
 
           {/* Link Columns */}
-          {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
+          {resolvedSections.map((section) => (
+            <div key={section.title}>
               <h3 className="font-semibold text-[var(--fg-default)] mb-4 text-sm">
-                {title}
+                {section.title}
               </h3>
               <ul className="space-y-3">
-                {links.map((link) => (
+                {(section.links || []).map((link) => (
                   <li key={link.label}>
                     <Link
-                      href={link.href}
+                      href={link.href || "#"}
                       className="text-sm text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
                     >
                       {link.label}

@@ -112,7 +112,8 @@ export async function getSiteSettings() {
       contact,
       social,
       seo,
-      footer
+      footer,
+      footerSections
     }
   `)
 }
