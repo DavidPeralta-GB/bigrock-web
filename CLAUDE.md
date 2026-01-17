@@ -6,6 +6,30 @@ This is a Next.js frontend for the TS@BigRock timesheet management SaaS product.
 
 TS@BigRock is a timesheet management application for teams. The website serves as the marketing/landing page and potentially the application frontend.
 
+## AWS Amplify Deployment
+
+- **Region**: `eu-west-2` (London)
+- **App ID**: `d3lmgtu84t40iu`
+- **Production URL**: https://bigrock.uk.com
+- **Amplify URL**: https://master.d3lmgtu84t40iu.amplifyapp.com
+- **Branch**: `master` (auto-deploy enabled)
+
+### Environment Variables (configured in Amplify Console)
+
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Sanity project ID |
+| `NEXT_PUBLIC_SANITY_DATASET` | Sanity dataset name |
+| `SANITY_WEBHOOK_SECRET` | Secret for validating Sanity webhook requests |
+
+### Revalidation Webhook
+
+Content updates from Sanity trigger on-demand revalidation via:
+- **Endpoint**: `https://master.d3lmgtu84t40iu.amplifyapp.com/api/revalidate`
+- **Route**: `app/api/revalidate/route.ts`
+
+Configure this webhook in Sanity at: https://www.sanity.io/manage → API → Webhooks
+
 ## Sanity CMS Configuration
 
 - **Project ID**: `yj6cjjt2`
