@@ -30,6 +30,50 @@ Content updates from Sanity trigger on-demand revalidation via:
 
 Configure this webhook in Sanity at: https://www.sanity.io/manage → API → Webhooks
 
+## Caching Architecture
+
+Content flows through multiple cache layers:
+
+```
+Sanity Studio → Sanity API → Sanity CDN → Next.js Server Cache → Amplify CDN → Browser
+```
+
+### Cache Invalidation
+
+When content is published in Sanity:
+1. Sanity webhook fires to `/api/revalidate`
+2. Next.js invalidates its server cache via `revalidatePath('/', 'layout')`
+3. Next page request fetches fresh data from Sanity API
+
+**Important:** The Sanity client uses `useCdn: false` to bypass Sanity's CDN cache. This ensures revalidation fetches fresh content immediately. Do not change this to `true` or content updates will be delayed.
+
+### Troubleshooting: Content Not Appearing
+
+If changes made in Sanity Studio don't appear on the live site:
+
+1. **Verify the change is published** - Draft changes won't appear. Click "Publish" in Sanity Studio.
+
+2. **Check the Sanity API directly** - Confirm the change exists:
+   ```bash
+   curl "https://yj6cjjt2.api.sanity.io/v2024-01-01/data/query/production?query=*[_id==\"hero\"][0]"
+   ```
+
+3. **Test the webhook endpoint**:
+   ```bash
+   curl -X POST "https://master.d3lmgtu84t40iu.amplifyapp.com/api/revalidate"
+   # Should return {"message":"Invalid signature"} (401) - this confirms the endpoint is working
+   ```
+
+4. **Verify webhook configuration in Sanity**:
+   - Go to https://www.sanity.io/manage → your project → API → Webhooks
+   - Ensure webhook URL is `https://master.d3lmgtu84t40iu.amplifyapp.com/api/revalidate`
+   - Ensure the secret matches `SANITY_WEBHOOK_SECRET` in Amplify
+
+5. **Force a full cache clear** - Trigger a new Amplify deployment:
+   ```bash
+   git commit --allow-empty -m "chore: trigger deployment" && git push
+   ```
+
 ## Sanity CMS Configuration
 
 - **Project ID**: `yj6cjjt2`
@@ -190,7 +234,7 @@ export const client = createClient({
   projectId: 'yj6cjjt2',
   dataset: 'production',
   apiVersion: '2024-01-01',
-  useCdn: true, // Use CDN for production reads
+  useCdn: false, // Disabled to ensure fresh content on revalidation
 })
 
 const builder = imageUrlBuilder(client)
