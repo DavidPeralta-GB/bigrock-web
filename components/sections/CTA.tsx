@@ -49,7 +49,7 @@ export function CTA({
         </p>
 
         {/* CTA Button */}
-        <Link href={buttonLink}>
+        <Link href={buttonLink || "#"}>
           <Button
             size="lg"
             className="bg-white text-[var(--accent-emphasis)] hover:bg-white/90 px-8 py-6 text-lg font-semibold group"
