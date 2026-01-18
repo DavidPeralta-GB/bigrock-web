@@ -74,6 +74,33 @@ If changes made in Sanity Studio don't appear on the live site:
    git commit --allow-empty -m "chore: trigger deployment" && git push
    ```
 
+### Known Issue: Static Generation Build Failure
+
+**Problem:** Using `export const revalidate = 60` (ISR) on the home page causes Amplify builds to fail with:
+```
+TypeError: Cannot destructure property 'auth' of 'a' as it is null.
+Error occurred prerendering page "/"
+```
+
+**Cause:** During static generation, Next.js pre-renders pages at build time by calling Sanity API queries. The `@sanity/client` library encounters an internal error when running in Amplify's build environment, likely due to differences in how the build container handles certain HTTP requests or environment setup.
+
+**Solution:** Use dynamic rendering instead of static generation for pages that fetch from Sanity:
+```typescript
+// app/page.tsx
+// ❌ Don't use - causes build failures in Amplify
+export const revalidate = 60
+
+// ✅ Use this instead - renders dynamically on each request
+export const dynamic = 'force-dynamic'
+```
+
+**Trade-offs:**
+- Dynamic rendering fetches fresh content on every request (no stale content)
+- Slightly higher latency per request vs. cached static pages
+- No build-time failures from Sanity API calls
+
+**Why not fix the root cause?** The error occurs in minified `@sanity/client` code during Amplify's build process. The exact cause is unclear (possibly related to SSM secrets setup or environment differences). Dynamic rendering is a reliable workaround that also ensures content is always fresh.
+
 ## Sanity CMS Configuration
 
 - **Project ID**: `yj6cjjt2`
