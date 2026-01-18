@@ -11,7 +11,8 @@ import {
   Footer,
 } from "@/components/sections"
 
-export const revalidate = 60 // Revalidate every 60 seconds
+// Use dynamic rendering to avoid static generation issues with Sanity client
+export const dynamic = 'force-dynamic'
 
 export default async function Home() {
   // Fetch all landing page data from Sanity
