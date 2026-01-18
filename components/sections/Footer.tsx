@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Clock, Twitter, Linkedin, Github } from "lucide-react"
+import { useCookieConsent } from "@/components/cookie-consent"
 
 interface FooterLink {
   label: string
@@ -70,6 +71,7 @@ export function Footer({
   social,
   footerSections,
 }: FooterProps) {
+  const { openSettings } = useCookieConsent()
   const resolvedContact = contact ?? {
     email: "hello@bigrock.com",
     phone: "+1 (555) 123-4567",
@@ -162,14 +164,22 @@ export function Footer({
           <p className="text-sm text-[var(--fg-muted)]">
             {currentYear} {siteName}. All rights reserved.
           </p>
-          {resolvedContact.email && (
-            <a
-              href={`mailto:${resolvedContact.email}`}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={openSettings}
               className="text-sm text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
             >
-              {resolvedContact.email}
-            </a>
-          )}
+              Cookie Settings
+            </button>
+            {resolvedContact.email && (
+              <a
+                href={`mailto:${resolvedContact.email}`}
+                className="text-sm text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
+              >
+                {resolvedContact.email}
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </footer>
