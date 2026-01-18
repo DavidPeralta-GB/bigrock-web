@@ -309,6 +309,58 @@ app/
       page.tsx          # Individual service pages
 ```
 
+## Cookie Consent (UK PECR Compliance)
+
+The site includes a cookie consent banner for UK PECR compliance.
+
+### Components
+
+Located in `components/cookie-consent/`:
+
+| Component | Description |
+|-----------|-------------|
+| `CookieConsentProvider` | Context provider managing consent state |
+| `CookieConsentBanner` | Bottom banner shown on first visit |
+| `CookieSettingsModal` | Modal for changing preferences (accessed via footer) |
+
+### Usage
+
+The provider is already wrapped in `app/layout.tsx`. To access consent state in components:
+
+```tsx
+import { useCookieConsent } from '@/components/cookie-consent'
+
+function MyComponent() {
+  const { consent, hasConsented, openSettings } = useCookieConsent()
+  // consent: 'all' | 'essential' | null
+  // hasConsented: boolean
+  // openSettings: () => void - opens the settings modal
+}
+```
+
+### Cookie Details
+
+- **Name**: `cookie_consent`
+- **Values**: `all` (analytics enabled) or `essential` (analytics disabled)
+- **Expiry**: 1 year
+- **Attributes**: `SameSite: Lax`, `Secure` (in production)
+
+### Analytics Integration
+
+Analytics utilities in `lib/analytics.ts` are gated behind consent:
+
+```tsx
+import { hasAnalyticsConsent, trackPageView, trackEvent } from '@/lib/analytics'
+
+// Check consent before tracking
+if (hasAnalyticsConsent()) {
+  trackPageView('/some-page')
+  trackEvent('click', 'button', 'signup')
+}
+```
+
+A `cookieConsentGranted` custom event is dispatched when analytics consent is given, allowing lazy initialization of analytics scripts.
+
 ## Claude Commands
 
 The following slash commands are available to help with development:
