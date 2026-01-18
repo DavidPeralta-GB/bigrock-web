@@ -29,6 +29,14 @@ interface FooterProps {
   footerSections?: FooterSection[]
 }
 
+function normalizeHref(href: string): string {
+  if (!href) return "#"
+  if (href.startsWith("/") || href.startsWith("#") || href.startsWith("http")) {
+    return href
+  }
+  return `/${href}`
+}
+
 const defaultFooterSections: FooterSection[] = [
   {
     title: "Product",
@@ -137,7 +145,7 @@ export function Footer({
                 {(section.links || []).map((link) => (
                   <li key={link.label}>
                     <Link
-                      href={link.href || "#"}
+                      href={normalizeHref(link.href)}
                       className="text-sm text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
                     >
                       {link.label}
