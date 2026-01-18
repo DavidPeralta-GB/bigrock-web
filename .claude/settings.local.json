@@ -11,7 +11,8 @@
       "Bash(npm run build:*)",
       "Bash(aws:*)",
       "Bash(aws sts get-caller-identity:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "WebFetch(domain:www.bigrock.uk.com)"
     ],
     "defaultMode": "bypassPermissions"
   }
