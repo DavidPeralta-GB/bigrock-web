@@ -86,7 +86,7 @@ export async function getFAQs() {
 // Landing Page Settings
 export async function getLandingPageSettings() {
   return client.fetch(`
-    *[_type == "landingPage"][0]{
+    *[_id == "landingPage"][0]{
       featuresTitle,
       featuresSubtitle,
       howItWorksTitle,
@@ -170,7 +170,7 @@ export async function getLandingPageData() {
       answer,
       category
     },
-    "settings": *[_type == "landingPage"][0]{
+    "settings": *[_id == "landingPage"][0]{
       featuresTitle,
       featuresSubtitle,
       howItWorksTitle,
