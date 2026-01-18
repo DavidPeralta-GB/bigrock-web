@@ -94,7 +94,13 @@ Global site configuration:
 - `contact` (object) - Contact info: email, phone, address
 - `social` (object) - Social links: linkedin, twitter, facebook (URLs)
 - `seo` (object) - Default SEO: metaTitle, metaDescription, ogImage
-- `footer` (object) - Footer: copyrightText, additionalLinks array
+- `footer` (object) - Footer configuration:
+  - `copyrightText` (string) - Copyright notice
+  - `footerSections` (array) - Link sections displayed in footer columns:
+    - `title` (string) - Section heading (e.g., "Product", "Company", "Legal")
+    - `links` (array) - Links in this section:
+      - `label` (string) - Display text
+      - `href` (string) - Link destination. Use slugs for internal pages (e.g., `privacy-policy`), `#section` for anchors, or full URLs for external links. The frontend normalizes slugs by adding a leading slash.
 
 #### `hero` (ID: `hero`)
 Hero section content:
