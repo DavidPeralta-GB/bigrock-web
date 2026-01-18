@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Menu, X, Clock } from "lucide-react"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -44,9 +45,11 @@ export function Navigation({ siteName = "TS@BigRock", logo }: NavigationProps) {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             {logo ? (
-              <img
+              <Image
                 src={logo}
                 alt={siteName}
+                width={36}
+                height={36}
                 className="h-9 w-auto group-hover:scale-105 transition-transform"
               />
             ) : (

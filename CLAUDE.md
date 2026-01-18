@@ -92,7 +92,9 @@ Global site configuration:
 - `tagline` (string) - Site tagline
 - `logo` (image with hotspot) - Site logo with alt text
 - `contact` (object) - Contact info: email, phone, address
-- `social` (object) - Social links: linkedin, twitter, facebook (URLs)
+- `socialLinks` (array) - Social media links:
+  - `platform` (string) - One of: linkedin, twitter, facebook, instagram, youtube, github, tiktok
+  - `url` (string) - Full URL to social profile
 - `seo` (object) - Default SEO: metaTitle, metaDescription, ogImage
 - `footer` (object) - Footer configuration:
   - `copyrightText` (string) - Copyright notice
@@ -115,6 +117,7 @@ Hero section content:
 Section titles and CTA configuration:
 - Section titles: `featuresTitle`, `featuresSubtitle`, `howItWorksTitle`, `pricingTitle`, `pricingSubtitle`, `testimonialsTitle`, `faqTitle`
 - CTA section: `ctaTitle`, `ctaDescription`, `ctaButtonText`, `ctaButtonLink`
+- `showTestimonials` (boolean, default: true) - Toggle visibility of testimonials section
 
 ### Collection Documents (multiple instances)
 

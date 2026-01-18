@@ -119,7 +119,7 @@ export default async function Page({ params }: PageProps) {
         siteName={siteSettings?.siteName}
         tagline={siteSettings?.tagline}
         contact={siteSettings?.contact}
-        social={siteSettings?.social}
+        socialLinks={siteSettings?.socialLinks}
         footerSections={siteSettings?.footerSections}
       />
     </main>

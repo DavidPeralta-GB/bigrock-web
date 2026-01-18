@@ -110,7 +110,11 @@ export async function getSiteSettings() {
       tagline,
       "logo": logo.asset->url,
       contact,
-      social,
+      socialLinks[]{
+        _key,
+        platform,
+        url
+      },
       seo,
       footer,
       "footerSections": footer.footerSections
@@ -177,14 +181,19 @@ export async function getLandingPageData() {
       ctaTitle,
       ctaDescription,
       ctaButtonText,
-      ctaButtonLink
+      ctaButtonLink,
+      showTestimonials
     },
     "siteSettings": *[_type == "siteSettings"][0]{
       siteName,
       tagline,
       "logo": logo.asset->url,
       contact,
-      social,
+      socialLinks[]{
+        _key,
+        platform,
+        url
+      },
       footer
     }
   }`)

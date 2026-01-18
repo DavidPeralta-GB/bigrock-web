@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Clock, Twitter, Linkedin, Github } from "lucide-react"
+import Image from "next/image"
+import { Clock, Twitter, Linkedin, Github, Facebook, Instagram, Youtube, Music2, LucideIcon } from "lucide-react"
 import { useCookieConsent } from "@/components/cookie-consent"
 
 interface FooterLink {
@@ -14,6 +15,32 @@ interface FooterSection {
   links: FooterLink[]
 }
 
+interface SocialLink {
+  _key: string
+  platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github' | 'tiktok'
+  url: string
+}
+
+const socialIcons: Record<SocialLink['platform'], LucideIcon> = {
+  linkedin: Linkedin,
+  twitter: Twitter,
+  facebook: Facebook,
+  instagram: Instagram,
+  youtube: Youtube,
+  github: Github,
+  tiktok: Music2,
+}
+
+const platformLabels: Record<SocialLink['platform'], string> = {
+  linkedin: 'LinkedIn',
+  twitter: 'Twitter',
+  facebook: 'Facebook',
+  instagram: 'Instagram',
+  youtube: 'YouTube',
+  github: 'GitHub',
+  tiktok: 'TikTok',
+}
+
 interface FooterProps {
   siteName?: string
   tagline?: string
@@ -22,11 +49,7 @@ interface FooterProps {
     email?: string
     phone?: string
   }
-  social?: {
-    twitter?: string
-    linkedin?: string
-    github?: string
-  }
+  socialLinks?: SocialLink[]
   footerSections?: FooterSection[]
 }
 
@@ -68,18 +91,13 @@ export function Footer({
   tagline = "Professional Timesheet Management",
   logo,
   contact,
-  social,
+  socialLinks,
   footerSections,
 }: FooterProps) {
   const { openSettings } = useCookieConsent()
   const resolvedContact = contact ?? {
     email: "hello@bigrock.com",
     phone: "+1 (555) 123-4567",
-  }
-  const resolvedSocial = social ?? {
-    twitter: "#",
-    linkedin: "#",
-    github: "#",
   }
   const resolvedSections = footerSections?.length ? footerSections : defaultFooterSections
   const currentYear = new Date().getFullYear()
@@ -92,7 +110,7 @@ export function Footer({
           <div className="col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
               {logo ? (
-                <img src={logo} alt={siteName} className="h-9 w-auto" />
+                <Image src={logo} alt={siteName} width={36} height={36} className="h-9 w-auto" />
               ) : (
                 <div className="w-9 h-9 rounded-lg bg-[var(--accent-emphasis)] flex items-center justify-center">
                   <Clock className="w-5 h-5 text-white" />
@@ -106,35 +124,27 @@ export function Footer({
               {tagline}
             </p>
             {/* Social Links */}
-            <div className="flex items-center gap-4">
-              {resolvedSocial.twitter && (
-                <a
-                  href={resolvedSocial.twitter}
-                  className="text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="w-5 h-5" />
-                </a>
-              )}
-              {resolvedSocial.linkedin && (
-                <a
-                  href={resolvedSocial.linkedin}
-                  className="text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              )}
-              {resolvedSocial.github && (
-                <a
-                  href={resolvedSocial.github}
-                  className="text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
-                  aria-label="GitHub"
-                >
-                  <Github className="w-5 h-5" />
-                </a>
-              )}
-            </div>
+            {socialLinks && socialLinks.length > 0 && (
+              <div className="flex items-center gap-4">
+                {socialLinks.map((link) => {
+                  const Icon = socialIcons[link.platform]
+                  const label = platformLabels[link.platform]
+                  if (!Icon) return null
+                  return (
+                    <a
+                      key={link._key}
+                      href={link.url}
+                      className="text-[var(--fg-muted)] hover:text-[var(--fg-default)] transition-colors"
+                      aria-label={label}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Icon className="w-5 h-5" />
+                    </a>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           {/* Link Columns */}

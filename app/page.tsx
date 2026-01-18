@@ -55,10 +55,12 @@ export default async function Home() {
       />
 
       {/* Testimonials Section */}
-      <Testimonials
-        title={data?.settings?.testimonialsTitle}
-        testimonials={data?.testimonials}
-      />
+      {data?.settings?.showTestimonials !== false && (
+        <Testimonials
+          title={data?.settings?.testimonialsTitle}
+          testimonials={data?.testimonials}
+        />
+      )}
 
       {/* FAQ Section */}
       <FAQ
@@ -80,7 +82,7 @@ export default async function Home() {
         tagline={siteSettings?.tagline}
         logo={siteSettings?.logo}
         contact={siteSettings?.contact}
-        social={siteSettings?.social}
+        socialLinks={siteSettings?.socialLinks}
         footerSections={siteSettings?.footerSections}
       />
     </main>

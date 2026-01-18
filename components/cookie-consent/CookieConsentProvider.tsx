@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import { createContext, useContext, useState, useCallback, useSyncExternalStore } from 'react'
 import Cookies from 'js-cookie'
 
 export type ConsentType = 'all' | 'essential' | null
@@ -22,23 +22,33 @@ const CookieConsentContext = createContext<CookieConsentContextType | undefined>
 const COOKIE_NAME = 'cookie_consent'
 const COOKIE_EXPIRY_DAYS = 365
 
-export function CookieConsentProvider({ children }: { children: React.ReactNode }) {
-  const [consent, setConsent] = useState<ConsentType>(null)
-  const [showBanner, setShowBanner] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-  const [mounted, setMounted] = useState(false)
+function getInitialConsent(): ConsentType {
+  if (typeof window === 'undefined') return null
+  const savedConsent = Cookies.get(COOKIE_NAME)
+  if (savedConsent === 'all' || savedConsent === 'essential') {
+    return savedConsent
+  }
+  return null
+}
 
-  // Read cookie on mount
-  useEffect(() => {
-    const savedConsent = Cookies.get(COOKIE_NAME) as ConsentType
-    if (savedConsent === 'all' || savedConsent === 'essential') {
-      setConsent(savedConsent)
-      setShowBanner(false)
-    } else {
-      setShowBanner(true)
-    }
-    setMounted(true)
-  }, [])
+function getInitialShowBanner(): boolean {
+  if (typeof window === 'undefined') return false
+  const savedConsent = Cookies.get(COOKIE_NAME)
+  return savedConsent !== 'all' && savedConsent !== 'essential'
+}
+
+// Hydration-safe mounted state using useSyncExternalStore
+const emptySubscribe = () => () => {}
+const getClientSnapshot = () => true
+const getServerSnapshot = () => false
+
+export function CookieConsentProvider({ children }: { children: React.ReactNode }) {
+  const [consent, setConsent] = useState<ConsentType>(getInitialConsent)
+  const [showBanner, setShowBanner] = useState(getInitialShowBanner)
+  const [showModal, setShowModal] = useState(false)
+
+  // Returns false on server, true on client - handles hydration safely
+  const mounted = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot)
 
   const saveConsent = useCallback((type: 'all' | 'essential') => {
     const isSecure = typeof window !== 'undefined' && window.location.protocol === 'https:'

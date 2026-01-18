@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 
@@ -48,13 +49,15 @@ export function CTA({
         </p>
 
         {/* CTA Button */}
-        <Button
-          size="lg"
-          className="bg-white text-[var(--accent-emphasis)] hover:bg-white/90 px-8 py-6 text-lg font-semibold group"
-        >
-          {buttonText}
-          <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-        </Button>
+        <Link href={buttonLink}>
+          <Button
+            size="lg"
+            className="bg-white text-[var(--accent-emphasis)] hover:bg-white/90 px-8 py-6 text-lg font-semibold group"
+          >
+            {buttonText}
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </Link>
 
         {/* Trust Badge */}
         <p className="mt-6 text-sm text-white/60">

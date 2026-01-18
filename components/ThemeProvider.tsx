@@ -11,19 +11,14 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setTheme] = useState<Theme>('dark')
+function getInitialTheme(): Theme {
+    if (typeof window === 'undefined') return 'dark'
+    const savedTheme = localStorage.getItem('theme') as Theme
+    return savedTheme || 'dark'
+}
 
-    useEffect(() => {
-        // Check local storage or system preference on mount
-        const savedTheme = localStorage.getItem('theme') as Theme
-        if (savedTheme) {
-            setTheme(savedTheme)
-        } else {
-            // Default to dark if no preference found
-            setTheme('dark')
-        }
-    }, [])
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+    const [theme, setTheme] = useState<Theme>(getInitialTheme)
 
     useEffect(() => {
         // Update attribute and persistence when theme changes
