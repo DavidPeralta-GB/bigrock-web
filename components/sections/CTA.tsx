@@ -59,10 +59,6 @@ export function CTA({
           </Button>
         </Link>
 
-        {/* Trust Badge */}
-        <p className="mt-6 text-sm text-white/60">
-          No credit card required. 14-day free trial.
-        </p>
       </div>
     </section>
   )
