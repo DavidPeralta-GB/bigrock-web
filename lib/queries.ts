@@ -113,7 +113,7 @@ export async function getSiteSettings() {
       social,
       seo,
       footer,
-      footerSections
+      "footerSections": footer.footerSections
     }
   `)
 }

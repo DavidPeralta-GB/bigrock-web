@@ -120,6 +120,7 @@ export default async function Page({ params }: PageProps) {
         tagline={siteSettings?.tagline}
         contact={siteSettings?.contact}
         social={siteSettings?.social}
+        footerSections={siteSettings?.footerSections}
       />
     </main>
   )
