@@ -2,12 +2,13 @@
 
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
+import { PortableText, PortableTextBlock } from "@portabletext/react"
 import { cn } from "@/lib/utils"
 
 interface FAQItem {
   _id?: string
   question: string
-  answer: string
+  answer: string | PortableTextBlock[]
   category?: string
 }
 
@@ -81,7 +82,11 @@ export function FAQ({
                 )}
               >
                 <div className="px-6 pb-4 text-[var(--fg-muted)] leading-relaxed">
-                  {faq.answer}
+                  {typeof faq.answer === "string" ? (
+                    faq.answer
+                  ) : (
+                    <PortableText value={faq.answer} />
+                  )}
                 </div>
               </div>
             </div>
